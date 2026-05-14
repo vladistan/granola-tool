@@ -1,6 +1,22 @@
 # Granola Tool Configuration
-# All values can be overridden via environment variables with GRANOLA_ prefix.
-# Example: GRANOLA_CACHE_DIR=/custom/path
+# Copy to ~/.config/granola/config.toml and edit as needed.
+#
+# Precedence: GRANOLA_* env vars > this file > built-in defaults
+# Override any single value via env var: GRANOLA_VAULT_PATH=/my/vault
+# Point to a different config file: GRANOLA_CONFIG=/path/to/config.toml
 
-# Sentry DSN for error tracking. Leave unset to disable Sentry.
-# SENTRY_DSN = "https://...@sentry.example.com/N"
+[api]
+# Granola API base URL (leave as default unless you are self-hosting)
+base_url = "https://public-api.granola.ai"
+
+[auth]
+# Your Granola API key — get it from https://granola.so
+key = "your-api-key-here"
+
+[paths]
+# Root of your Obsidian vault
+vault_path = "~/Documents/ObsidianVault"
+# Directory where meeting notes are written for knowledge-base integration
+lekhak_path = "~/knowledge-base/meetings"
+# Granola app cache directory (default is the macOS app cache location)
+cache_dir = "~/Library/Application Support/Granola"
