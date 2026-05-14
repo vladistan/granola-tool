@@ -1,0 +1,6 @@
+# Granola Tool Configuration
+# All values can be overridden via environment variables with GRANOLA_ prefix.
+# Example: GRANOLA_CACHE_DIR=/custom/path
+
+# Sentry DSN for error tracking. Leave unset to disable Sentry.
+# SENTRY_DSN = "https://...@sentry.example.com/N"
