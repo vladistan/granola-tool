@@ -15,7 +15,7 @@ dev = [
 
 [project]
 name = "granola-tool"
-version = "0.3.1"
+version = "0.3.2"
 description = "CLI tool for querying Granola meeting recordings and exporting to Obsidian"
 readme = "README.md"
 authors = [

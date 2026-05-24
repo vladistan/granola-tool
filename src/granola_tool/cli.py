@@ -22,8 +22,19 @@ app.add_typer(obsidian_app, name="obsidian")
 app.add_typer(test_app, name="test")
 
 
+def _version_callback(value: bool) -> None:
+    if value:
+        from granola_tool import __version__
+
+        typer.echo(f"granola-tool {__version__}")
+        raise typer.Exit()
+
+
 @app.callback()
-def default_action(ctx: typer.Context) -> None:
+def default_action(
+    ctx: typer.Context,
+    version: bool = typer.Option(False, "--version", "-V", callback=_version_callback, is_eager=True, help="Show version and exit."),
+) -> None:
     """Show recent meetings when no command is given."""
     if ctx.invoked_subcommand is None:
         from granola_tool.commands.meeting import meeting_list
