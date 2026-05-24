@@ -28,6 +28,8 @@ def _extract_session_title(filepath: Path) -> str:
             if stripped.startswith("### "):
                 return stripped.removeprefix("### ")
             if stripped and not stripped.startswith("-") and not stripped.startswith("─"):
+                if ":" in stripped and stripped.split(":")[0].replace("_", "").isalpha():
+                    continue
                 return stripped
     except OSError:
         pass
@@ -132,7 +134,13 @@ def lekhak_list(
         if not folder.exists():
             typer.echo(f"ERROR: meeting folder '{name}' not found", err=True)
             raise typer.Exit(code=1)
-        files = sorted(folder.glob("*.txt"), reverse=True)
+        def _date_key(f: Path) -> datetime:
+            try:
+                return datetime.strptime(f.stem, "%m-%d-%y")
+            except ValueError:
+                return datetime.min
+
+        files = sorted(folder.glob("*.txt"), key=_date_key, reverse=True)
         transcript_dir = base / "t" / name
         print(f"Meeting: {name} ({len(files)} sessions)\n")
         print(f"{'SLUG':<22}  {'S':<3}  {'T':<3}  TITLE")
